@@ -13,7 +13,10 @@ const AdminLogin = async (req,res)=>{
         if(check){
         const check2 = await bcrypt.compare(data.password, check.password)
         if(check2){
-            const token = jwt.sign({id:check._id},"secret")
+            const token = jwt.sign({id:check._id,
+                name:check.name,
+                emaail:check.email
+            },"secret")
             return res.json({
                 success:true,
                 message:token

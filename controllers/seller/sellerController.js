@@ -66,7 +66,10 @@ const SellerLogin= async (req,res)=>{
         if(check){
         const check2 = await bcrypt.compare(data.password, check.password)
         if(check2){
-            const token = jwt.sign({id:check._id},"secret")
+            const token = jwt.sign({id:check._id,
+                name:check.name,
+                email:check.email
+            },"secret")
             return res.json({
                 success:true,
                 message:token,
@@ -112,6 +115,8 @@ const SellerSignUp = async (req,res)=>{
         })
         console.log("dot")
         const token =  jwt.sign({id:response._id,
+            name:response.name,
+            email:response.email
         },"secret")
         console.log(token)
         res.json({
