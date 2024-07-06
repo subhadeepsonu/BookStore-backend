@@ -3,6 +3,24 @@ const Order = require("../../schema/orderschema")
 const Seller = require("../../schema/sellerschema")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
+const DeleteBook = async (req,res)=>{
+    try {
+        const data = await req.body
+        const responce = await Books.deleteOne({
+            _id:data.id
+        })
+        console.log(data)
+         res.json({
+            success:true,
+            message:responce
+        })
+    } catch (error) {
+        return   res.json({
+            success:false,
+            message:"Something went wrong"
+        })
+    }
+}
 const SellerGetOrders = async (req,res)=>{
     try {
         const data = await req.body
@@ -51,7 +69,8 @@ const SellerAddBooks = async (req,res)=>{
             author:data.author,
             name:data.name,
             seller:data.seller,
-            imgurl:data.imgurl
+            imgurl:data.imgurl,
+            price:data.price
         })
         res.json({
             success:true,
@@ -147,5 +166,6 @@ module.exports={
     SellerGetBooks,
     SellerGetOrders,
     SellerLogin,
-    SellerSignUp
+    SellerSignUp,
+    DeleteBook
 }

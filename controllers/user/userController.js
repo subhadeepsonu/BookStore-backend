@@ -48,6 +48,7 @@ const UserAddOrders = async (req,res)=>{
             bookname:data.bookname,
             imgurl:data.imgurl
         })
+        
         res.json({
             success:true,
             message:response
@@ -79,11 +80,14 @@ const UserWishlist = async (req,res)=>{
 const UserAddWishlist = async (req,res)=>{
     try {
         const data = await req.body
+        console.log(data)
         const response = await Wishlist.create({
-            books:data.books,
-            user:data.user
+            bookname:data.bookname,
+            user:data.user,
+            imgurl:data.imgurl
         })
-        res.json({
+        
+        return res.json({
             success:true,
             message:response
         })

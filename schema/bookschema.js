@@ -5,7 +5,8 @@ const BooksSchema = new Schema({
     author: { type: String, required: true },
     seller: { type: Schema.Types.ObjectId, ref: 'Seller', required: true },
     createdAt: { type: Date, default: Date.now },
-    imgurl:{type:String,required:true}
+    imgurl:{type:String,required:true},
+    price:{type:Number,required:true}
 });
 
 const Books = mongoose.model('Books', BooksSchema);

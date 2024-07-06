@@ -4,7 +4,7 @@ const { UserGetBooks, UserGetOrders, UserAddOrders, UserWishlist, UserAddWishlis
 userRouter.get('/books',UserGetBooks)
 userRouter.post('/orders',UserGetOrders)
 userRouter.post('/addOrders',UserAddOrders)
-userRouter.get('/wishlist',UserWishlist)
+userRouter.post('/wishlist',UserWishlist)
 userRouter.post('/Addwishlist',UserAddWishlist)
 userRouter.post('/login',UserLogin)
 userRouter.post('/signup',UserSignUp)
