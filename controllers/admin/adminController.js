@@ -16,7 +16,8 @@ const AdminLogin = async (req,res)=>{
         if(check2){
             const token = jwt.sign({id:check._id,
                 name:check.name,
-                emaail:check.email
+                emaail:check.email,
+                role:"admin"
             },"secret")
             return res.json({
                 success:true,
