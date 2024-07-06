@@ -6,6 +6,12 @@ const jwt = require("jsonwebtoken")
 const SellerGetOrders = async (req,res)=>{
     try {
         const data = await req.body
+        if (!data.id) {
+            return res.json({
+                success: false,
+                message: "Seller ID is required"
+            });
+        }
         const response = await Order.find({
             seller:data.id
         })
@@ -44,7 +50,8 @@ const SellerAddBooks = async (req,res)=>{
         const response = await Books.create({
             author:data.author,
             name:data.name,
-            seller:data.seller1
+            seller:data.seller,
+            imgurl:data.imgurl
         })
         res.json({
             success:true,
@@ -53,7 +60,7 @@ const SellerAddBooks = async (req,res)=>{
     } catch (error) {
         res.json({
             sucess:false,
-            message:"Something went wrong"
+            message:error
         })
     }
 }
@@ -68,7 +75,8 @@ const SellerLogin= async (req,res)=>{
         if(check2){
             const token = jwt.sign({id:check._id,
                 name:check.name,
-                email:check.email
+                email:check.email,
+                role:"seller"
             },"secret")
             return res.json({
                 success:true,
@@ -111,7 +119,8 @@ const SellerSignUp = async (req,res)=>{
         const response = await Seller.create({
             email:data.email,
             name:data.name,
-            password:hash
+            password:hash,
+            role:"seller"
         })
         console.log("dot")
         const token =  jwt.sign({id:response._id,

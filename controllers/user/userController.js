@@ -44,7 +44,9 @@ const UserAddOrders = async (req,res)=>{
         const response  = await Order.create({
             books:data.books,
             seller:data.seller,
-            user:data.user
+            user:data.user,
+            bookname:data.bookname,
+            imgurl:data.imgurl
         })
         res.json({
             success:true,

@@ -6,6 +6,8 @@ const orderschema = new Schema({
     },
     books: { type: Schema.Types.ObjectId, ref: 'Books' },
     seller:{type:Schema.Types.ObjectId,ref:'Seller'},
+    bookname:{type:String,required:true},
+    imgurl:{type:String,required:true},
     createdAt: { type: Date, default: Date.now }
 })
 const Order = mongoose.model('Order',orderschema)
