@@ -3,7 +3,8 @@ const Books = require("../../schema/bookschema")
 const Order = require("../../schema/orderschema")
 const Seller = require("../../schema/sellerschema")
 const User = require("../../schema/userschema")
-
+const bcrypt = require("bcryptjs")
+const jwt = require("jsonwebtoken")
 const AdminLogin = async (req,res)=>{
     try {
         const data = req.body
@@ -34,9 +35,10 @@ const AdminLogin = async (req,res)=>{
         message:"user doesnt exist"
     })
     } catch (error) {
+        console.log(error)
         res.json({
             sucess:false,
-            message:"Something went wrong"
+            message:error
         })
     }
 }
