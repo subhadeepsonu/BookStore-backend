@@ -4,6 +4,42 @@ const User = require("../../schema/userschema");
 const Wishlist = require("../../schema/wishistschema");
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
+const Deletewishlist = async(req,res)=>{
+    try {
+        const data = await req.body
+        console.log(data)
+        const response = await Wishlist.deleteOne({
+            _id:req.body.id
+        })
+        console.log(response)
+        res.json({
+            success:true,
+            message:response
+        })
+    } catch (error) {
+        res.json({
+            success:false,
+            message:`${error}`
+        })
+    }
+}
+const DeleteOrder = async (req,res)=>{
+    try {
+        const data = await req.body
+        const response = await Order.deleteOne({
+           _id:data.id
+        })
+        res.json({
+            success:true,
+            message:response
+        })
+    } catch (error) {
+        res.json({
+            success:false,
+            message:`${error}`
+        })
+    }
+}
 const UserGetBooks = async (req,res)=>{
     try {
         const responce =  await Books.find();
@@ -110,9 +146,9 @@ const UserLogin = async (req,res)=>{
             const token = jwt.sign({id:check._id,
                 role:"user",
                 name:check.username,
-                email:check.email
+                email:check.email,
+                address:check.address
             },"secret")
-            
             return res.json({
                 success:true,
                 message:token,
@@ -155,12 +191,14 @@ const UserSignUp = async (req,res)=>{
         const response = await User.create({
             email:data.email,
             password:hash,
-            username:data.name
+            username:data.name,
+            address:data.address
         })
         
         const token =  jwt.sign({id:response._id,
             email:response.email,
-            name:response.name
+            name:response.name,
+            address:response.address
         },"secret")
         
       return   res.json({
@@ -192,4 +230,4 @@ const UserDetails = async (req, res) => {
         res.status(500).json({ success: false, message: "Something went wrong" });
     }
 };
-module.exports = {UserGetBooks,UserGetOrders,UserAddOrders,UserWishlist,UserAddWishlist,UserLogin,UserSignUp,UserDetails}
+module.exports = {UserGetBooks,UserGetOrders,UserAddOrders,UserWishlist,UserAddWishlist,UserLogin,UserSignUp,UserDetails,DeleteOrder,Deletewishlist}
