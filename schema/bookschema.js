@@ -6,8 +6,8 @@ const BooksSchema = new Schema({
     seller: { type: Schema.Types.ObjectId, ref: 'Seller', required: true },
     createdAt: { type: Date, default: Date.now },
     imgurl:{type:String,required:true},
-    price:{type:Number,required:true}
+    price:{type:Number,required:true},
+    discription:{type:String,required:true}
 });
-
 const Books = mongoose.model('Books', BooksSchema);
 module.exports = Books;

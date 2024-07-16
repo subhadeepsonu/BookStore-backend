@@ -70,7 +70,8 @@ const SellerAddBooks = async (req,res)=>{
             name:data.name,
             seller:data.seller,
             imgurl:data.imgurl,
-            price:data.price
+            price:data.price,
+            discription:data.discription
         })
         res.json({
             success:true,
